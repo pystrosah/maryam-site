@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}دوره‌ها{% endblock %}
+{% block content %}
+<h2 class="text-center fw-bold mb-4" style="color: #1a2a6c;">
+    <i class="bi bi-grid-3x3-gap-fill"></i> همه دوره‌های آموزشی
+</h2>
+<div class="row">
+    {% for course in courses %}
+    <div class="col-md-4 mb-3">
+        <div class="card border-0 shadow-sm h-100 hover-card rounded-4 overflow-hidden">
+            <!-- در templates/courses.html و course_detail.html -->
+            {% if course.image %}
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="bi bi-image display-1 text-white-50"></i>
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <span class="badge bg-{{ ['primary', 'success', 'info', 'warning', 'danger'][loop.index0 % 5] }} mb-2">{{ course.category }}</span>
+                <h5 class="card-title fw-bold">{{ course.title }}</h5>
+                <p class="text-muted small">{{ course.description[:80] }}...</p>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <small><i class="bi bi-person"></i> {{ course.teacher or 'نامشخص' }}</small>
+                    <small class="text-success fw-bold">{{ course.price|format_price }} تومان</small>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <small class="text-muted"><i class="bi bi-people"></i> {{ course.capacity }} نفر</small>
+                    {% if session.user_id %}
+                    <a href="{{ url_for('user.course_detail', course_id=course.id) }}" class="btn btn-primary btn-sm rounded-pill">
+                        جزئیات
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                        ورود برای ثبت‌نام
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

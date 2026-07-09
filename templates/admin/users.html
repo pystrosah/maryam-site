@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}مدیریت کاربران{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="list-group shadow-sm rounded-4">
+            <a href="{{ url_for('admin.dashboard') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-grid"></i> داشبورد
+            </a>
+            <a href="{{ url_for('admin.users') }}" class="list-group-item list-group-item-action active border-0" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <i class="bi bi-people"></i> کاربران
+            </a>
+            <a href="{{ url_for('admin.courses') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-book"></i> دوره‌ها
+            </a>
+            <a href="{{ url_for('admin.enrollments') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-check2-square"></i> ثبت‌نام‌ها
+            </a>
+            <a href="{{ url_for('admin.messages') }}" class="list-group-item list-group-item-action border-0 rounded-bottom-4">
+                <i class="bi bi-envelope"></i> پیام‌ها
+            </a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h3 class="fw-bold" style="color: #1a2a6c;">
+            <i class="bi bi-people"></i> مدیریت کاربران
+        </h3>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>نام</th>
+                        <th>نام کاربری</th>
+                        <th>موبایل</th>
+                        <th>نقش</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.phone }}</td>
+                        <td><span class="badge bg-secondary">{{ user.role }}</span></td>
+                        <td>
+                            {% if user.is_active %}
+                                <span class="badge bg-success">فعال</span>
+                            {% else %}
+                                <span class="badge bg-danger">غیرفعال</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin.toggle_user', user_id=user.id) }}" style="display:inline;">
+                                <button class="btn btn-sm btn-warning" {% if user.id == session.user_id %}disabled{% endif %}>
+                                    {% if user.is_active %}غیرفعال{% else %}فعال{% endif %}
+                                </button>
+                            </form>
+                            <form method="POST" action="{{ url_for('admin.delete_user', user_id=user.id) }}" style="display:inline;" class="delete-confirm">
+                                <button class="btn btn-sm btn-danger" {% if user.id == session.user_id %}disabled{% endif %}>حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

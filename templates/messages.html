@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}پیام‌ها{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card border-0 shadow-lg rounded-4 mb-4">
+            <div class="card-header bg-transparent border-0 text-center pt-4">
+                <i class="bi bi-envelope display-1 text-primary"></i>
+                <h3 class="fw-bold" style="color: #1a2a6c;">ارسال پیام جدید</h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('user.messages') }}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">موضوع</label>
+                        <input type="text" class="form-control" name="subject" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">متن پیام</label>
+                        <textarea class="form-control" name="content" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill fw-bold">
+                        <i class="bi bi-send"></i> ارسال پیام
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        {% if messages %}
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-transparent border-0">
+                <h5 class="fw-bold"><i class="bi bi-clock-history"></i> پیام‌های قبلی</h5>
+            </div>
+            <div class="card-body">
+                {% for msg in messages %}
+                <div class="border-bottom mb-3 pb-3">
+                    <h6 class="fw-bold">{{ msg.subject }}</h6>
+                    <p>{{ msg.content }}</p>
+                    <small class="text-muted">{{ msg.created_at[:10] }}</small>
+                    {% if msg.admin_reply %}
+                        <div class="bg-light p-3 mt-2 rounded-3" style="border-right: 4px solid #0d6efd;">
+                            <strong class="text-primary">پاسخ ادمین:</strong> {{ msg.admin_reply }}
+                        </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}مدیریت ثبت‌نام‌ها{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="list-group shadow-sm rounded-4">
+            <a href="{{ url_for('admin.dashboard') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-grid"></i> داشبورد
+            </a>
+            <a href="{{ url_for('admin.users') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people"></i> کاربران
+            </a>
+            <a href="{{ url_for('admin.courses') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-book"></i> دوره‌ها
+            </a>
+            <a href="{{ url_for('admin.enrollments') }}" class="list-group-item list-group-item-action active border-0" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <i class="bi bi-check2-square"></i> ثبت‌نام‌ها
+            </a>
+            <a href="{{ url_for('admin.messages') }}" class="list-group-item list-group-item-action border-0 rounded-bottom-4">
+                <i class="bi bi-envelope"></i> پیام‌ها
+            </a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h3 class="fw-bold" style="color: #1a2a6c;">
+            <i class="bi bi-check2-square"></i> مدیریت ثبت‌نام‌ها
+        </h3>
+        <div class="table-responsive mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>کاربر</th>
+                        <th>دوره</th>
+                        <th>وضعیت</th>
+                        <th>تاریخ ثبت</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for enrollment in enrollments %}
+                    <tr>
+                        <td>{{ enrollment.user_name }}</td>
+                        <td>{{ enrollment.course_title }}</td>
+                        <td>
+                            <span class="badge {% if enrollment.status == 'pending' %}bg-warning{% elif enrollment.status == 'paid' %}bg-success{% elif enrollment.status == 'completed' %}bg-info{% else %}bg-danger{% endif %}">
+                                {{ {'pending':'در انتظار', 'paid':'پرداخت شده', 'completed':'تکمیل شده', 'cancelled':'لغو شده'}[enrollment.status] }}
+                            </span>
+                        </td>
+                        <td>{{ enrollment.enrolled_at[:10] }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('admin.update_enrollment', enrollment_id=enrollment.id) }}">
+                                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                    <option value="pending" {% if enrollment.status == 'pending' %}selected{% endif %}>در انتظار</option>
+                                    <option value="paid" {% if enrollment.status == 'paid' %}selected{% endif %}>پرداخت شده</option>
+                                    <option value="completed" {% if enrollment.status == 'completed' %}selected{% endif %}>تکمیل شده</option>
+                                    <option value="cancelled" {% if enrollment.status == 'cancelled' %}selected{% endif %}>لغو شده</option>
+                                </select>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

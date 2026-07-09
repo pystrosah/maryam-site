@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+{% block title %}خانه - کانون فرهنگی مریم{% endblock %}
+{% block content %}
+<!-- هدر اصلی با بک‌گراند جدید و لوگوی بسیار بزرگ -->
+<div class="row">
+    <div class="col-12">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden" style="background: #F9F2E8;">
+            <div class="card-body text-center p-5">
+                <div class="mb-4">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                         alt="لوگو کانون فرهنگی مریم" 
+                         style="max-height: 280px; width: auto; display: block; margin: 0 auto;"
+                         onerror="this.style.display='none'">
+                </div>
+                <h1 class="display-3 fw-bold" style="color: #2c3e50;">
+                    <span style="color: #c9a84c;">کانون</span> فرهنگی مریم
+                </h1>
+                <p class="lead fs-3" style="color: #34495e;">معرفت • عزت • پویایی</p>
+                <p class="fs-5" style="color: #7f8c8d;">با فرهنگ مریم، به سوی آینده‌ای روشن</p>
+                {% if not session.user_id %}
+                <a href="{{ url_for('auth.register') }}" class="btn btn-gold btn-lg px-5 rounded-pill shadow-sm mt-3">
+                    <i class="bi bi-person-plus"></i> ثبت‌نام کنید
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- دسته‌بندی دوره‌ها با طراحی جدید -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h2 class="text-center mb-4 fw-bold" style="color: #2c3e50;">
+            <span style="color: #c9a84c;">◆</span> دسته‌بندی دوره‌ها
+        </h2>
+        <p class="text-center text-muted mb-4">دوره‌های متنوع آموزشی در ۵ حوزه تخصصی</p>
+    </div>
+    
+    <div class="col-md-2-4 mb-3">
+        <div class="card border-0 shadow-sm h-100 text-center hover-card" style="border-top: 4px solid #c9a84c;">
+            <div class="card-body py-4">
+                <div class="icon-box mx-auto mb-3" style="width: 80px; height: 80px; background: #f8f4ea; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-book-q fs-1" style="color: #c9a84c;"></i>
+                </div>
+                <h5 class="fw-bold" style="color: #2c3e50;">قرآنی</h5>
+                <p class="text-muted small">روخوانی، روانخوانی، تجوید</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2-4 mb-3">
+        <div class="card border-0 shadow-sm h-100 text-center hover-card" style="border-top: 4px solid #e74c3c;">
+            <div class="card-body py-4">
+                <div class="icon-box mx-auto mb-3" style="width: 80px; height: 80px; background: #fdf0ed; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-palette fs-1" style="color: #e74c3c;"></i>
+                </div>
+                <h5 class="fw-bold" style="color: #2c3e50;">هنری</h5>
+                <p class="text-muted small">خوشنویسی، نقاشی، طراحی</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2-4 mb-3">
+        <div class="card border-0 shadow-sm h-100 text-center hover-card" style="border-top: 4px solid #3498db;">
+            <div class="card-body py-4">
+                <div class="icon-box mx-auto mb-3" style="width: 80px; height: 80px; background: #edf4fa; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-translate fs-1" style="color: #3498db;"></i>
+                </div>
+                <h5 class="fw-bold" style="color: #2c3e50;">زبان</h5>
+                <p class="text-muted small">عربی، انگلیسی</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2-4 mb-3">
+        <div class="card border-0 shadow-sm h-100 text-center hover-card" style="border-top: 4px solid #2ecc71;">
+            <div class="card-body py-4">
+                <div class="icon-box mx-auto mb-3" style="width: 80px; height: 80px; background: #eafaf1; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-laptop fs-1" style="color: #2ecc71;"></i>
+                </div>
+                <h5 class="fw-bold" style="color: #2c3e50;">علمی</h5>
+                <p class="text-muted small">برنامه‌نویسی، کامپیوتر</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2-4 mb-3">
+        <div class="card border-0 shadow-sm h-100 text-center hover-card" style="border-top: 4px solid #9b59b6;">
+            <div class="card-body py-4">
+                <div class="icon-box mx-auto mb-3" style="width: 80px; height: 80px; background: #f4ecf7; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="bi bi-tools fs-1" style="color: #9b59b6;"></i>
+                </div>
+                <h5 class="fw-bold" style="color: #2c3e50;">مهارتی</h5>
+                <p class="text-muted small">طراحی، فتوشاپ</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- دوره‌های فعال با عکس -->
+<div class="row mt-5">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold" style="color: #2c3e50;">
+                    <span style="color: #c9a84c;">◆</span> دوره‌های فعال
+                </h3>
+                <p class="text-muted">جدیدترین دوره‌های آموزشی کانون</p>
+            </div>
+            <a href="{{ url_for('main.courses') }}" class="btn btn-outline-gold rounded-pill">
+                مشاهده همه <i class="bi bi-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+    
+    {% if courses %}
+        {% for course in courses[:4] %}
+        <div class="col-md-3 mb-3">
+            <div class="card border-0 shadow-sm h-100 hover-card rounded-4 overflow-hidden">
+                {% if course.image %}
+                <img src="{{ course.image }}" class="card-img-top" alt="{{ course.title }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(135deg, #f8f4ea, #ecf0f1);">
+                    <i class="bi bi-image display-3" style="color: #bdc3c7;"></i>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="badge" style="background: #c9a84c; color: #fff;">{{ course.category }}</span>
+                        <small class="text-muted"><i class="bi bi-people"></i> {{ course.capacity }}</small>
+                    </div>
+                    <h5 class="card-title fw-bold" style="color: #2c3e50;">{{ course.title }}</h5>
+                    <p class="text-muted small" style="font-size: 0.85rem;">{{ course.description[:60] }}...</p>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <small style="color: #7f8c8d;"><i class="bi bi-person"></i> {{ course.teacher or 'نامشخص' }}</small>
+                        <span class="fw-bold" style="color: #c9a84c;">{{ course.price|format_price }} تومان</span>
+                    </div>
+                    <a href="{{ url_for('user.course_detail', course_id=course.id) }}" class="btn btn-gold w-100 mt-2 rounded-pill">
+                        مشاهده دوره
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info text-center border-0 shadow-sm rounded-4">
+                <i class="bi bi-info-circle"></i> در حال حاضر هیچ دوره‌ای ثبت نشده است
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- درباره ما و آمار -->
+<div class="row mt-5">
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm h-100 rounded-4">
+            <div class="card-body p-4">
+                <h4 class="fw-bold" style="color: #2c3e50;">
+                    <span style="color: #c9a84c;">◆</span> درباره ما
+                </h4>
+                <p class="text-muted" style="line-height: 2;">
+                    کانون فرهنگی مریم با هدف ارتقاء سطح علمی و فرهنگی جامعه، دوره‌های متنوع آموزشی را در زمینه‌های قرآنی، هنری، زبان، علمی و مهارتی برگزار می‌کند.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-geo-alt fs-5" style="color: #c9a84c;"></i>
+                            <span class="me-2 text-muted">تهران، خیابان آزادی</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-telephone fs-5" style="color: #c9a84c;"></i>
+                            <span class="me-2 text-muted">۰۲۱-۱۲۳۴۵۶۷۸</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-envelope fs-5" style="color: #c9a84c;"></i>
+                            <span class="me-2 text-muted">info@maryam.ir</span>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-clock fs-5" style="color: #c9a84c;"></i>
+                            <span class="me-2 text-muted">۸:۰۰ - ۲۰:۰۰</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card border-0 shadow-sm h-100 rounded-4">
+            <div class="card-body p-4 text-center">
+                <h4 class="fw-bold" style="color: #2c3e50;">
+                    <span style="color: #c9a84c;">◆</span> آمار کانون
+                </h4>
+                <div class="row mt-4">
+                    <div class="col-6 mb-3">
+                        <div class="border rounded-3 p-3" style="border-color: #c9a84c !important;">
+                            <i class="bi bi-people fs-2" style="color: #c9a84c;"></i>
+                            <h3 class="fw-bold" style="color: #2c3e50;">+۵۰۰</h3>
+                            <p class="text-muted small">دانش‌آموز</p>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="border rounded-3 p-3" style="border-color: #c9a84c !important;">
+                            <i class="bi bi-book fs-2" style="color: #c9a84c;"></i>
+                            <h3 class="fw-bold" style="color: #2c3e50;">+۳۰</h3>
+                            <p class="text-muted small">دوره فعال</p>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="border rounded-3 p-3" style="border-color: #c9a84c !important;">
+                            <i class="bi bi-person-badge fs-2" style="color: #c9a84c;"></i>
+                            <h3 class="fw-bold" style="color: #2c3e50;">+۱۵</h3>
+                            <p class="text-muted small">مدرس مجرب</p>
+                        </div>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <div class="border rounded-3 p-3" style="border-color: #c9a84c !important;">
+                            <i class="bi bi-award fs-2" style="color: #c9a84c;"></i>
+                            <h3 class="fw-bold" style="color: #2c3e50;">+۱۰</h3>
+                            <p class="text-muted small">سال تجربه</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

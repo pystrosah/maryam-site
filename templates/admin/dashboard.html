@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block title %}داشبورد مدیریت{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="list-group shadow-sm rounded-4">
+            <a href="{{ url_for('admin.dashboard') }}" class="list-group-item list-group-item-action active border-0 rounded-top-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <i class="bi bi-grid"></i> داشبورد
+            </a>
+            <a href="{{ url_for('admin.users') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people"></i> کاربران
+            </a>
+            <a href="{{ url_for('admin.courses') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-book"></i> دوره‌ها
+            </a>
+            <a href="{{ url_for('admin.enrollments') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-check2-square"></i> ثبت‌نام‌ها
+            </a>
+            <a href="{{ url_for('admin.messages') }}" class="list-group-item list-group-item-action border-0 rounded-bottom-4">
+                <i class="bi bi-envelope"></i> پیام‌ها
+            </a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h3 class="fw-bold" style="color: #1a2a6c;">
+            <i class="bi bi-grid"></i> داشبورد مدیریت
+        </h3>
+        <div class="row mt-3">
+            <div class="col-md-3 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <div class="card-body text-white text-center">
+                        <h6>کاربران</h6>
+                        <p class="display-4 fw-bold">{{ stats.total_users }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <div class="card-body text-white text-center">
+                        <h6>دوره‌ها</h6>
+                        <p class="display-4 fw-bold">{{ stats.total_courses }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                    <div class="card-body text-white text-center">
+                        <h6>کل ثبت‌نام‌ها</h6>
+                        <p class="display-4 fw-bold">{{ stats.total_enrollments }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #f6d365, #fda085);">
+                    <div class="card-body text-white text-center">
+                        <h6>در انتظار تایید</h6>
+                        <p class="display-4 fw-bold">{{ stats.pending_enrollments }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- آمار دقیق ثبت‌نام‌ها -->
+        <div class="row mt-2">
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-success text-white">
+                    <div class="card-body text-center">
+                        <h6><i class="bi bi-check-circle"></i> پرداخت شده</h6>
+                        <p class="display-6 fw-bold">{{ stats.paid_enrollments }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-info text-white">
+                    <div class="card-body text-center">
+                        <h6><i class="bi bi-trophy"></i> تکمیل شده</h6>
+                        <p class="display-6 fw-bold">{{ stats.completed_enrollments }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow-sm rounded-4 bg-danger text-white">
+                    <div class="card-body text-center">
+                        <h6><i class="bi bi-x-circle"></i> لغو شده</h6>
+                        <p class="display-6 fw-bold">{{ stats.cancelled_enrollments }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-transparent border-0">
+                        <h6 class="fw-bold"><i class="bi bi-people"></i> آخرین کاربران</h6>
+                    </div>
+                    <div class="card-body">
+                        {% for user in users %}
+                            <div class="border-bottom py-2 d-flex justify-content-between">
+                                <span><i class="bi bi-person-circle text-primary"></i> {{ user.full_name }}</span>
+                                <span class="badge bg-secondary rounded-pill">{{ user.role }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-transparent border-0">
+                        <h6 class="fw-bold"><i class="bi bi-clock-history"></i> آخرین ثبت‌نام‌ها</h6>
+                    </div>
+                    <div class="card-body">
+                        {% for enrollment in enrollments %}
+                            <div class="border-bottom py-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>{{ enrollment.user_name }} - {{ enrollment.course_title }}</span>
+                                    <span class="badge {% if enrollment.status == 'pending' %}bg-warning{% elif enrollment.status == 'paid' %}bg-success{% elif enrollment.status == 'completed' %}bg-info{% else %}bg-danger{% endif %} rounded-pill">
+                                        {{ {'pending':'در انتظار', 'paid':'پرداخت شده', 'completed':'تکمیل شده', 'cancelled':'لغو شده'}[enrollment.status] }}
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

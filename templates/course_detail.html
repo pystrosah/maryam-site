@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ course.title }}{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <!-- در templates/courses.html و course_detail.html -->
+            {% if course.image %}
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <i class="bi bi-image display-1 text-white-50"></i>
+                </div>
+            {% endif %}
+            <div class="card-body p-4">
+                <span class="badge bg-{{ ['primary', 'success', 'info', 'warning', 'danger'][course.id % 5] }} mb-2">{{ course.category }}</span>
+                <h2 class="fw-bold" style="color: #1a2a6c;">{{ course.title }}</h2>
+                <hr>
+                <p>{{ course.description }}</p>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <p><i class="bi bi-person text-primary"></i> <strong>مدرس:</strong> {{ course.teacher or 'نامشخص' }}</p>
+                        <p><i class="bi bi-cash text-success"></i> <strong>شهریه:</strong> {{ course.price|format_price }} تومان</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><i class="bi bi-people text-info"></i> <strong>ظرفیت:</strong> {{ course.capacity }} نفر</p>
+                        <p><i class="bi bi-calendar text-warning"></i> <strong>شروع:</strong> {{ course.start_date[:10] if course.start_date else 'نامشخص' }}</p>
+                    </div>
+                </div>
+                
+                {% if enrollment %}
+                    <div class="alert alert-info mt-3 rounded-3">
+                        <i class="bi bi-check-circle"></i> شما در این دوره ثبت‌نام کرده‌اید.
+                        <br>وضعیت: {{ {'pending':'در انتظار تایید', 'paid':'پرداخت شده', 'completed':'تکمیل شده', 'cancelled':'لغو شده'}[enrollment.status] }}
+                    </div>
+                {% else %}
+                    <form method="POST" action="{{ url_for('user.enroll_course', course_id=course.id) }}">
+                        <button type="submit" class="btn btn-success btn-lg w-100 rounded-pill">
+                            <i class="bi bi-plus-circle"></i> ثبت‌نام در دوره
+                        </button>
+                        <small class="text-muted d-block text-center mt-2">پس از ثبت‌نام، منتظر تایید ادمین باشید</small>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <a href="{{ url_for('main.courses') }}" class="btn btn-outline-primary rounded-pill mt-3">
+            <i class="bi bi-arrow-right"></i> بازگشت به لیست دوره‌ها
+        </a>
+    </div>
+</div>
+{% endblock %}

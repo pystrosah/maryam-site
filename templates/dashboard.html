@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}پنل کاربری{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body text-center">
+                <i class="bi bi-person-circle display-1 text-primary"></i>
+                {% set user = get_user_by_id(session.user_id) %}
+                <h5 class="fw-bold mt-2">{{ user.full_name }}</h5>
+                <p class="text-muted">{{ user.username }}</p>
+                <a href="{{ url_for('user.profile') }}" class="btn btn-outline-primary btn-sm rounded-pill">
+                    <i class="bi bi-pencil"></i> ویرایش
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                    <div class="card-body text-white">
+                        <h6><i class="bi bi-book"></i> دوره‌های فعال</h6>
+                        <p class="display-4 fw-bold">{{ my_courses|length }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                    <div class="card-body text-white">
+                        <h6><i class="bi bi-hourglass-split"></i> در انتظار تایید</h6>
+                        <p class="display-4 fw-bold">{{ pending_courses|length }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                    <div class="card-body text-white">
+                        <h6><i class="bi bi-envelope"></i> پیام‌ها</h6>
+                        <p class="display-4 fw-bold">{{ messages|length }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-transparent border-0">
+                <h5 class="fw-bold"><i class="bi bi-book"></i> دوره‌های فعال من</h5>
+            </div>
+            <div class="card-body">
+                {% if my_courses %}
+                    {% for enrollment in my_courses %}
+                    <div class="border-bottom py-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">{{ enrollment.course_title }}</h6>
+                                <small class="text-muted">{{ enrollment.category }} - {{ enrollment.teacher }}</small>
+                            </div>
+                            <span class="badge bg-success rounded-pill">فعال</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">شما در هیچ دوره‌ای ثبت‌نام نشده‌اید</p>
+                    <a href="{{ url_for('main.courses') }}" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-book"></i> مشاهده دوره‌ها
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

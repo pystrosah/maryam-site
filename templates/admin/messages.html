@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}مدیریت پیام‌ها{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="list-group shadow-sm rounded-4">
+            <a href="{{ url_for('admin.dashboard') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-grid"></i> داشبورد
+            </a>
+            <a href="{{ url_for('admin.users') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-people"></i> کاربران
+            </a>
+            <a href="{{ url_for('admin.courses') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-book"></i> دوره‌ها
+            </a>
+            <a href="{{ url_for('admin.enrollments') }}" class="list-group-item list-group-item-action border-0">
+                <i class="bi bi-check2-square"></i> ثبت‌نام‌ها
+            </a>
+            <a href="{{ url_for('admin.messages') }}" class="list-group-item list-group-item-action active border-0 rounded-bottom-4" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                <i class="bi bi-envelope"></i> پیام‌ها
+            </a>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h3 class="fw-bold" style="color: #1a2a6c;">
+            <i class="bi bi-envelope"></i> مدیریت پیام‌ها
+        </h3>
+        <div class="mt-3">
+            {% for msg in messages %}
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="fw-bold">{{ msg.subject }}</h5>
+                            <p class="text-muted mb-1">
+                                <i class="bi bi-person"></i> {{ msg.full_name }} ({{ msg.username }})
+                                <span class="mx-2">•</span>
+                                <i class="bi bi-clock"></i> {{ msg.created_at[:16] }}
+                            </p>
+                        </div>
+                        <span class="badge {% if msg.admin_reply %}bg-success{% else %}bg-warning{% endif %} rounded-pill">
+                            {% if msg.admin_reply %}پاسخ داده شد{% else %}بدون پاسخ{% endif %}
+                        </span>
+                    </div>
+                    <hr>
+                    <div class="bg-light p-3 rounded-3">
+                        <strong>متن پیام:</strong>
+                        <p class="mt-2">{{ msg.content }}</p>
+                    </div>
+                    
+                    {% if msg.admin_reply %}
+                    <div class="bg-success bg-opacity-10 p-3 rounded-3 mt-3" style="border-right: 4px solid #198754;">
+                        <strong class="text-success">پاسخ ادمین:</strong>
+                        <p class="mt-2">{{ msg.admin_reply }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <button class="btn btn-primary btn-sm mt-3" data-bs-toggle="collapse" data-bs-target="#reply{{ msg.id }}">
+                        <i class="bi bi-reply"></i> پاسخ
+                    </button>
+                    
+                    <div class="collapse mt-3" id="reply{{ msg.id }}">
+                        <form method="POST" action="{{ url_for('admin.reply_message', message_id=msg.id) }}">
+                            <div class="mb-2">
+                                <label class="form-label fw-bold">پاسخ به {{ msg.full_name }}</label>
+                                <textarea class="form-control" name="reply" rows="4" required placeholder="متن پاسخ خود را وارد کنید..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-send"></i> ارسال پاسخ
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="alert alert-info text-center rounded-4">
+                <i class="bi bi-info-circle"></i> هیچ پیامی برای نمایش وجود ندارد
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,309 @@
+/* فونت و استایل پایه */
+* {
+    font-family: 'Vazirmatn', 'IRANSans', 'Tahoma', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* رنگ‌های اصلی */
+:root {
+    --gold: #c9a84c;
+    --gold-dark: #b8963a;
+    --gold-light: #f8f4ea;
+    --cream: #F9F2E8;
+    --dark: #2c3e50;
+    --dark-light: #34495e;
+    --text-muted: #7f8c8d;
+}
+
+/* دکمه طلایی */
+.btn-gold {
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+    background: var(--gold-dark);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(201, 168, 76, 0.3);
+}
+
+.btn-outline-gold {
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-gold:hover {
+    background: var(--gold);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(201, 168, 76, 0.3);
+}
+
+/* کارت‌های هاور */
+.hover-card {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1) !important;
+}
+
+/* انیمیشن fade-in */
+.card {
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* اسکرول بار */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-dark);
+}
+
+/* نوار ناوبری */
+.navbar .nav-link {
+    color: var(--dark) !important;
+    font-weight: 500;
+    padding: 8px 16px !important;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    background: var(--gold-light);
+    color: var(--gold) !important;
+}
+
+.navbar .nav-link.active {
+    background: var(--gold-light);
+    color: var(--gold) !important;
+}
+
+.navbar .dropdown-item:hover {
+    background: var(--gold-light);
+    color: var(--gold);
+}
+
+/* استایل جدول‌ها */
+.table {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.table thead {
+    background: var(--dark);
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: var(--gold-light);
+}
+
+/* فرم‌ها */
+.form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(201, 168, 76, 0.25);
+}
+
+/* بج‌ها */
+.badge {
+    padding: 6px 14px;
+    font-weight: 500;
+}
+
+/* فوتر */
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--gold) !important;
+}
+
+/* ریسپانسیو */
+@media (max-width: 768px) {
+    .display-1 {
+        font-size: 3rem !important;
+    }
+    .display-3 {
+        font-size: 2.5rem !important;
+    }
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* کلاس col-md-2-4 برای 5 ستون */
+@media (min-width: 768px) {
+    .col-md-2-4 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+}
+
+@media (max-width: 767px) {
+    .col-md-2-4 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+
+/* استایل هدر اصلی - بک‌گراند کرم */
+.header-cream {
+    background: var(--cream);
+}
+
+/* آیکون‌ها */
+.icon-box i {
+    transition: transform 0.3s ease;
+}
+
+.hover-card:hover .icon-box i {
+    transform: scale(1.1);
+}
+
+/* پیام‌های فلش */
+.alert {
+    border: none;
+    border-radius: 12px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.alert-warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.alert-info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+/* استایل کارت هدر اصلی */
+.main-header-card {
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 3rem;
+}
+
+/* لوگو در هدر */
+.main-logo {
+    max-height: 180px;
+    width: auto;
+}
+
+/* لوگو در نوار ناوبری */
+.navbar-logo {
+    height: 40px;
+    width: auto;
+}
+/* استایل‌های اضافی برای لوگو */
+.navbar-brand img {
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05);
+}
+
+/* لوگوی صفحه اصلی با افکت */
+.main-logo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.main-logo-container::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    left: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.main-logo {
+    max-height: 280px !important;
+    width: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+    transition: transform 0.5s ease;
+}
+
+.main-logo:hover {
+    transform: scale(1.03);
+}
+
+/* ریسپانسیو برای لوگو */
+@media (max-width: 768px) {
+    .main-logo {
+        max-height: 180px !important;
+    }
+    
+    .navbar-brand img {
+        height: 40px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-logo {
+        max-height: 140px !important;
+    }
+    
+    .navbar-brand img {
+        height: 35px !important;
+    }
+}
